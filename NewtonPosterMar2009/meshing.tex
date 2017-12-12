@@ -1,0 +1,19 @@
+\Obox{
+
+\heading{Voronoi Meshes based on a Given Density Function}
+
+\begin{blist}
+\item Points are added and removed so that the point density conforms approximately to a given density function
+\item Points are Delaunay triangulated (using CGAL)
+\item Triangle edges are treated as springs with un-stretched edge length equal to given density function
+\item Springs are relaxed
+\item Voronoi dual used as mesh for AtmosFOAM
+\end{blist}
+
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+475201+mesh_N_reqRes.png}
+\begin{minipage}{0.22\linewidth}\centering
+Mesh density function (metres)
+\end{minipage}\begin{minipage}{0.77\linewidth}
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+legends+requiredResUnder_requiredResolution.pdf}
+\end{minipage}
+}

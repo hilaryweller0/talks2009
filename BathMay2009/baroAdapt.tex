@@ -1,0 +1,363 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    Adaptive Mesh Modelling:
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}\large
+
+Mesh refinement criteria
+\end{center}
+
+\begin{list0}
+
+\item Climate models do not converge with resolution -- instead more features are resolved.
+
+\item So mathematical error estimates may not be optimal refinement criteria
+
+\item Infrequent adaptation:
+
+\begin{list1}
+
+\item Reduce inevitable cost and loss of accuracy associated with adaptation
+
+\item Do not recursively resolve spurious features
+
+\item Do not resolve all fine scales
+
+\end{list1}
+\end{list0}
+
+\end{slide}
+
+\newcommand{\listMeshAdapt}[8]
+{
+\begin{list1}
+    \item \textcolor{#1}{Map latest solution onto a uniform coarse mesh}
+    \item \textcolor{#2}{Calculate a measure of the features which are unresolved on the coarse mesh and represent this on the coarse mesh}
+    \item \textcolor{#3}{Simulate the next 12 hours on the coarse mesh advecting the unresolved features}
+    \item \textcolor{#4}{Keep track of maximum refinement criteria on the coarse mesh over 12 hours based on resolved and unresolved features}
+    \item \textcolor{#5}{Define a new required mesh density function based on coarse mesh refinement criteria over 12 hours}
+    \item \textcolor{#6}{Generate a new mesh which satisfies the given mesh density function}
+    \item \textcolor{#7}{Map previous latest refined mesh solution onto new mesh}
+    \item \textcolor{#8}{Simulate 12 hours on the new refined mesh}
+\end{list1}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    Overview of Infrequent Mesh Adaptation Method
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{list0}
+
+\item Starting from initial conditions on an initial mesh
+
+\item Adapt mesh every 12 hours (72 time steps)
+
+\item To define the new mesh:
+
+\listMeshAdapt{black}{black}{black}{black}{black}{black}{black}{black}
+
+\end{list0}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont
+    Example: Simulating from 5\half\ to 6 days of Barotropically Unstable Jet
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\listMeshAdapt{purple}{black}{black}{black}{black}{black}{black}{black}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont\color{purple}
+    Map latest solution onto a uniform coarse mesh
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+Vorticity ($\zeta$) and mesh at 5\half\ days, before remeshing (31,467 cells) \\
+\includegraphics[width=0.75\linewidth]
+{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+475200+vorticityFilledMeshLines.png}\\
+
+$\downarrow$ Vorticity mapped onto 2,562 cell uniform coarse mesh
+\includegraphics[width=0.75\linewidth]
+{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+meshing+save_518400+475200+vorticity.png}
+\end{center}
+
+\begin{minipage}{0.12\linewidth}
+$\zeta~ s^{-1}$
+\end{minipage}
+\begin{minipage}{0.87\linewidth}
+\includegraphics[width=\linewidth]
+{graphics/shallowWater+baroInstab+legends+vorticityFilledMeshLines_vorticity.png}
+\end{minipage}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont
+    Example: Simulating from 5\half\ to 6 days of Barotropically Unstable Jet
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\listMeshAdapt{black}{purple}{black}{black}{black}{black}{black}{black}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont\color{purple}\large
+    Calculate a measure of the features which are unresolved on the coarse mesh and represent this on the coarse mesh
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+
+Maximum $|\nabla\negthinspace\vortDiv|$ over all fine cells within each coarse cell at 5\half\ days
+\\
+\includegraphics[width=0.75\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+meshing+save_518400+475200+magGradvortDivMapped.png}
+
+\begin{minipage}{0.12\linewidth}
+$s^{-1}m^{-1}$
+\end{minipage}\begin{minipage}{0.87\linewidth}
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+legends+magGradvortDiv.png}
+\end{minipage}
+
+\end{center}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont
+    Example: Simulating from 5\half\ to 6 days of Barotropically Unstable Jet
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\listMeshAdapt{black}{black}{purple}{black}{black}{black}{black}{black}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont\color{purple}
+    Simulate next 12 hours on the coarse mesh advecting unresolved features
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+12 hours in 8 time steps on coarse mesh
+
+\begin{minipage}{0.49\linewidth}\centering \small
+$\zeta$ mapped onto coarse mesh at 5\half\ days\\
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+meshing+save_518400+475200+vorticity.png}
+\end{minipage}
+%
+\begin{minipage}{0.49\linewidth}\centering \small
+$|\nabla\negthinspace\vortDiv|$ unresolved on coarse mesh at 5\half\ days\\
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+meshing+save_518400+475200+magGradvortDivMapped.png}
+\end{minipage}
+%
+\begin{minipage}{0.49\linewidth}\centering \small
+$\downarrow$ simulated on uniform coarse mesh from 5\half\ to 6 days\\
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+meshing+save_518400+518400+vorticity.png}
+\end{minipage}
+%
+\begin{minipage}{0.49\linewidth}\centering \small
+$\downarrow$ passively advected from 5\half\ to 6 days\\
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+meshing+save_518400+518400+magGradvortDivMapped.png}
+\end{minipage}
+\\
+\begin{minipage}{0.49\linewidth}
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+legends+vorticityFilledMeshLines_vorticity.png}
+\end{minipage}
+\begin{minipage}{0.49\linewidth}
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+legends+magGradvortDiv.png}
+\end{minipage}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont
+    Example: Simulating from 5\half\ to 6 days of Barotropically Unstable Jet
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\listMeshAdapt{black}{black}{black}{purple}{purple}{black}{black}{black}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont\large\color{purple}
+    Define a new mesh density function based on coarse mesh over 12 hours
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{raggedright}
+If $\delta x$ = mesh density function
+\vspace{-12pt}
+\begin{equation*}
+\frac{1}{\delta x} = \frac{1}{\delta x}_{\max}
++ \biggl(\frac{1}{\delta x}_{\min} - \frac{1}{\delta x}_{\max}\biggr)
+\max
+\biggl(
+    \frac{\max\bigl( R_{rc},\underset{12\text{ hours}}{\max}R_r\bigr)}{R_{rc}},
+    \frac{\max\bigl( R_{uc},\underset{12\text{ hours}}{\max}R_u\bigr)}{R_{uc}}
+\biggr)
+\end{equation*}\vfill
+{
+\setlength{\tabcolsep}{3pt}
+\vspace{-12pt}where \begin{tabular}[t]{ccl}
+$R_r$ & = & $|\nabla\negthinspace\vortDiv|$ resolved on the coarse mesh \\
+$R_u$ & = & $|\nabla\negthinspace\vortDiv|$ unresolved and advected on the coarse mesh \\
+$R_{rc}$ & = & critical value for $R_c = 1\times 10^{-10}s^{-1}m^{-1}$\\
+$R_{uc}$ & = & critical value for $R_u = 4\times 10^{-10}s^{-1}m^{-1}$\\
+$\delta x_{\max}$ & = & 960km \\
+$\delta x_{\min}$ & = & 60km \\
+\end{tabular}
+}
+\end{raggedright}
+
+\begin{center}
+Mesh density function (metres) \\
+\includegraphics[width=0.75\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+meshing+save_518400+518400+requiredResolution.png}
+\end{center}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont
+    Example: Simulating from 5\half\ to 6 days of Barotropically Unstable Jet
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\listMeshAdapt{black}{black}{black}{black}{black}{purple}{black}{black}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont\large\color{purple}
+    Generate a new mesh which satisfies the given mesh density function
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{list0}
+\item Points are added and removed so that the density conforms approximately to given density function
+\item Points are Delaunay triangulated (using CGAL)
+\item Triangle edges are treated as springs with un-stretched edge length equal to given density function
+\item Springs are relaxed
+\item Voronoi dual used as mesh for AtmosFOAM
+\end{list0}
+
+\includegraphics[width=\linewidth]
+{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+475201+mesh_N_reqRes.png}
+\begin{minipage}{0.22\linewidth}\centering
+Mesh density function (metres)
+\end{minipage}\begin{minipage}{0.77\linewidth}
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+legends+requiredResUnder_requiredResolution.pdf}
+\end{minipage}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont
+    Example: Simulating from 5\half\ to 6 days of Barotropically Unstable Jet
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\listMeshAdapt{black}{black}{black}{black}{black}{black}{purple}{black}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont\normalsize\color{purple}
+    Least squares quadratic fit from nearest cell centres onto new cell centres
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{center}
+Vorticity and mesh at 5\half\ days, before remeshing (31,467 cells) \\
+\includegraphics[width=0.85\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+475200+vorticityFilledMeshLines.png}
+
+$\downarrow$ Vorticity and mesh at 5\half\ days, after remeshing (34,601 cells) \\
+\includegraphics[width=0.85\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+475201+vorticityFilledMeshLines.png}
+
+\end{center}
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    \normalfont
+    Example: Simulating from 5\half\ to 6 days of Barotropically Unstable Jet
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\listMeshAdapt{black}{black}{black}{black}{black}{black}{black}{purple}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    Barotropically Unstable Jet with Mesh Adaptation every 12 hours
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{48pt}
+
+\href{run:vorticityFilledMeshLines.gif}
+{
+\includegraphics[width=\linewidth]
+{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+475201+vorticityFilledMeshLines.png}
+}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}
+{
+    Number of cells and errors for different refinement criteria
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{48pt}
+
+\begin{tabular}{cc}
+1000s of cells & Normalised RMS ($\ell_2$) error
+\\
+\includegraphics[width=0.49\linewidth]
+{graphics/shallowWater+baroInstab+plotAll+plotsC+nCells.pdf}
+&
+\includegraphics[width=0.49\linewidth]
+{graphics/shallowWater+baroInstab+plotAll+plotsC+l2.pdf}
+\end{tabular}
+\end{slide}

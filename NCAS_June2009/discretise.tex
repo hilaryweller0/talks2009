@@ -1,0 +1,33 @@
+\begin{slide}{Discretisation of $~\frac{\partial p}{\partial z} + \rho g$ for vertical momentum (w)}
+
+\vspace{12pt}
+\begin{minipage}{0.49\linewidth}\raggedright
+\begin{center}{\bf Lorenz and Charney -- Phillips grids} (Arakawa and Konor, MWR, March 1996) \end{center}
+\includegraphics[width=\linewidth]{plots/L-CP_1.png}
+\end{minipage}
+%
+\begin{minipage}{0.49\linewidth}\begin{center}
+{\bf Co-located Algorithms} \\
+\includegraphics[width=0.5\linewidth]{plots/colocated.pdf} \\
+\vspace{12pt}
+\begin{list0}
+\item Staggered discretisation of $\frac{\partial p}{\partial z}$ at faces
+\item Interpolate $\rho$ to face
+\item Solve Helmholz equation for $p$ and $\phi$
+\end{list0}
+\begin{minipage}[t]{0.49\linewidth}\raggedright
+\begin{center}{\bf Raw $\rho$ }\end{center}
+\begin{list0}
+\item Unstaggered discretisation of $\frac{\partial p}{\partial z}$ at cell centres and raw $\rho$ used to calculate w
+\end{list0}
+\end{minipage}
+%
+\begin{minipage}[t]{0.49\linewidth}\raggedright
+\begin{center}{\bf Interpolate $\rho$ }\end{center}
+\begin{list0}
+\item Interpolate resulting $\frac{\partial p}{\partial z} + \rho g$ to cell centre to calculate w
+\end{list0}
+\end{minipage}
+\end{center}
+\end{minipage}
+\end{slide}

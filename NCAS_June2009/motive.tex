@@ -1,0 +1,55 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\large\color{purple} Aim}
+\begin{list0}
+\item Non-hydrostatic, fully elastic model of the atmosphere
+\item Using semi-implicit time stepping
+\item An unstructured mesh\pause
+\end{list0}
+
+{\large\color{purple} Optimal Solution on a Structured Grid}
+\begin{list0}
+\item C-grid staggering in the horizontal (to prevent $p-\vec{U}$ oscillations)
+\item Charney-Phillips staggering in the vertical (to prevent $p-T$ oscillations)
+\item Thermodynamic variables -- $\Pi - \theta$
+$\biggl(\Pi = \bigl(\frac{p}{p_0}\bigr)^\kappa$,
+$\theta = T\bigl(\frac{p_0}{p}\bigr)^\kappa\biggl)$\pause
+\end{list0}
+
+{\large\color{purple} Problems on an Unstructured Grid}
+
+Cannot have all 3 of:
+\begin{list0}
+\item Fully staggered
+\item Accuracy $\ge 2^{nd}$ order
+\item Exact conservation of mass and energy
+\end{list0}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+{\large\color{purple} So Why go Unstructured}
+\begin{list0}
+\item These disadvantages hold for any kind of unstructuredness, even nested grids
+\item Need some form of unstructuredness to local refinement\pause
+\end{list0}
+
+{\large\color{purple} AtmosFOAM Solution:}
+\begin{list0}
+\item Blending between staggered and co-located algorithms
+\item Thermodynamic variables $p$ and $\theta$
+\end{list0}
+Upshot:
+\begin{list0}
+\item Grid scale oscillations suppressed
+\item Good conservation (mass exact)
+\item Accuracy $\ge 2^{nd}$ order
+\end{list0}
+
+
+\end{slide}

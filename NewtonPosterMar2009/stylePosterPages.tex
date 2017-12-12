@@ -1,0 +1,76 @@
+\documentclass[10pt]{report}
+\textheight 26cm
+\textwidth 19cm
+
+% for pdflatex
+\topmargin -2.8cm
+\oddsidemargin -1cm
+
+\parindent=0.0in
+%\parsep=0pt
+
+\raggedright
+
+%\usepackage[draft]{graphicx}
+\usepackage{graphicx}
+\usepackage {amsmath, subfigure, lscape, rotating,
+             times, color, amssymb, fancybox}
+\renewcommand{\implies}{\ensuremath{\Rightarrow}}
+
+\pagestyle{empty}
+
+\definecolor{purple}{rgb}{0.6,0,0.7}
+
+% tabular customisation
+%\setlength{\tabcolsep}{2pt}
+%\renewcommand{\arraystretch}{0.7}
+
+\renewcommand{\large}{\fontsize{25}{30}\selectfont}
+\renewcommand{\normalsize}{\fontsize{20}{22.5}\selectfont}
+\renewcommand{\small}{\fontsize{14}{16}\selectfont}
+\renewcommand{\tiny}{\fontsize{10}{12}\selectfont}
+
+% Define plist environment for list with arbitrary bullets
+\newenvironment{plist}[1]%
+{\begin{list}{{#1}}
+    {\raggedright\normalsize\setlength{\itemsep}{-2pt}\setlength{\leftmargin}{0.5cm}
+    \vspace{-6pt}}}
+{\end{list}\vspace{-6pt}}
+
+% Define blist environment for list of bullets
+\newenvironment{blist}%
+{\begin{plist}{{$\bullet$}}}{\end{plist}}
+
+% Define Qlist environment for list of questions
+\newenvironment{Qlist}%
+{\begin{plist}{{Q.}}}{\end{plist}}
+
+% Define Alist environment for list of answers
+\newenvironment{Alist}%
+{\begin{plist}{{A.}}}{\end{plist}}
+
+\newcommand{\heading}[1]{\large \centering #1 \\ \normalsize}
+
+\newcommand{\Obox}[1]%
+{\Ovalbox{\begin{minipage}[t]{\linewidth}\vspace{3pt}
+#1
+\vspace{1pt}\end{minipage}}}
+
+
+\input{aliasF}
+
+%\renewcommand{\large}{\fontsize{11}{13}\selectfont}
+%\renewcommand{\normalsize}{\fontsize{8}{9}\selectfont}
+
+% FOAM paths
+% ~~~~~~~~~~
+\newcommand{\macroPath}{\HOME/latex/begin/foam}
+
+% Nabla's specific macro packages
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\usepackage{latexsym,amssymb}
+\usepackage{\macroPath/tensorCommon}        % Common tensor symbols
+\usepackage{\macroPath/tensorEquation}      % Common tensor equations
+\usepackage{\macroPath/tensorOperator}      % Common tensor operators
+
+\begin{document}

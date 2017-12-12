@@ -1,0 +1,21 @@
+\begin{slide}
+{
+    A 2D Test Case: Mountain Waves \normalfont\normalsize
+    (Gallus and Klemp, MWR, Apr 2000
+}
+
+\begin{center}
+\includegraphics[scale=1.75]{plots/GK00_setup.pdf}
+
+$h = \frac{400m}{1 + \frac{x^2}{1000m^2}}$, $\delta x = \delta z = 200m$, Run for 36 minutes
+\end{center}
+
+AtmosFOAM setup:
+\begin{list0}
+\item No Rayleigh damping or non-reflecting BCs
+\item Viscous damping within 10km of each open boundary instead
+\item $\delta t = 5s$, ($Co \approx 0,5$)
+\item Domain height 20km
+\end{list0}
+
+\end{slide}

@@ -1,0 +1,16 @@
+
+
+
+for file in figures/*/fig.eps; do
+    name=${file#*/}
+    name=${name%/*}
+    echo $name
+    convert -density 150 +antialias $file ../presentation/figs/$name.png
+done
+
+for file in figures/epsFiles/*.eps; do
+    name=${file##*/}
+    name=${name%.*}
+    echo $name
+    convert -density 150 +antialias $file ../presentation/figs/$name.png
+done

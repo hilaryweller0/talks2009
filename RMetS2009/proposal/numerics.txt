@@ -1,0 +1,20 @@
+Hilary Weller <h.weller@reading.ac.uk> 0118 378 6608
+
+Numerical Modelling of the Atmosphere and Ocean
+
+The equations of motion are solved very accurately and efficiently using traditional latitude-longitude grids or spherical harmonic expnsion methods. However as computer power increases, local mesh refinement may become more attractive. Centres round the world are now actively developing models with stretched grids, block structured grids and unstructured grids for local static or adaptive resolution. Some issues with these are:
+* Maintenance of high accuracy at all points
+* The additional cost of storing and navigating the mesh
+* Use of semi-Lagrangian advection
+* Data assimilation on a multi-scale mesh
+* Efficient parallelisation
+* Mesh adaptation criteria
+* Physical parametrisations that are accurate over a wide range of resolutions and do not spuriously trigger or inhibit mesh adaptivity
+* Preservation of geostrophic and hydrostatic balance and/or maintaining conservation properties under adaptation
+* Spurious wave reflection and refraction from mesh inhomogeneity
+* Large amounts of re-coding
+
+This workshop would follow an International Newton Institute workshop on "Multi-scale modelling of the atmosphere and ocean" which will be held in Reading in March and which will cover many of the same themes. The Royal Met Soc conference workshop will be an opportunity for the UK community to discuss our role in the international effort and forge new collaborations towards creating next generation dynamical cores.
+
+Keywords
+Numerics, adaptive, mesh, refinement, grid, unstructured

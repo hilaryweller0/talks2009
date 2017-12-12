@@ -1,0 +1,9 @@
+Adaptive Mesh Modelling of the Global Atmosphere
+
+Hilary Weller
+
+With the current increases in computing power, it may be beneficial to use adaptive meshes to increase resolution where the solution has particularly complex flow features. The use of adaptive meshes may lead to improvements in predicting the regional impacts of climate change or to improve forecasts of high impact weather. But adaptive meshes can incur increases in cost and reductions in accuracy where the mesh changes in resolution in space or time.
+
+A new method of predicting in advance where mesh resolution will be needed is presented which allows for longer periods in between mesh adaptation. This leads to reduced cost of both changing the mesh and mapping the solution from old to new mesh because both are done less frequently. Improvements in accuracy are also gained because the mesh is refined before high resolution features develop rather than adapting once high resolution features begin to develop. The polygons in the meshes change size gradually in space which also reduces errors.
+
+I will show results of a simulation of a barotropically unstable mid-latitude jet for 12 days in which the mesh is adapted only every twelve hours with different refinement criteria. I will compare results on block structured meshes and meshes of polygons.

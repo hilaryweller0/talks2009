@@ -1,0 +1,69 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}{Taking up the challenge:}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{20pt}
+{\large How best to achieve local refinement (from Weller, Weller and Fournier, MWR, 2009)}
+
+\begin{list0}
+
+\item What underlying mesh structure is best?
+
+\item How should local mesh refinement be achieved?
+
+\item Can static mesh refinement improve accuracy?
+
+\end{list0}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}{How best to achieve local refinement on the sphere}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\vspace{20pt}
+
+\begin{minipage}{0.31\linewidth}
+    \includegraphics[width=\linewidth]
+    {graphics/shallowWater+WilliSteady+24x48_refine+constant+mesh_30.png}
+\end{minipage}
+\hspace{0.005\linewidth}
+\begin{minipage}{0.17\linewidth}\begin{list0}\raggedright
+    \item Reduced lat-lon
+    \item 2:1 refinement
+\end{list0}\end{minipage}
+%
+\begin{minipage}{0.31\linewidth}
+    \includegraphics[width=\linewidth]
+    {graphics/shallowWater+WilliSteady+cube12_eq_refine+constant+mesh_30.png}
+\end{minipage}
+\hspace{0.005\linewidth}
+\begin{minipage}{0.17\linewidth}\begin{list0}\raggedright
+    \item Equal angle cubed sphere
+    \item 2:1 refinement
+\end{list0}\end{minipage}
+
+\vspace{20pt}
+
+\begin{minipage}{0.31\linewidth}
+    \includegraphics[width=\linewidth]
+    {graphics/shallowWater+WilliSteady+bucky4_refine+constant+mesh_30.png}
+\end{minipage}
+\hspace{0.005\linewidth}
+\begin{minipage}{0.17\linewidth}\begin{list0}\raggedright
+    \item Hexagonal icosahedral
+    \item Voronoi refinement
+    \item Triangulation of varying springs
+\end{list0}\end{minipage}
+%
+\begin{minipage}{0.31\linewidth}
+    \includegraphics[width=\linewidth]
+    {graphics/shallowWater+WilliSteady+tri4_refine+constant+mesh_30.png}
+\end{minipage}
+\hspace{0.005\linewidth}
+\begin{minipage}{0.17\linewidth}\begin{list0}\raggedright
+    \item Triangular icosahedral
+    \item Delaunay refinement
+    \item Triangulation of varying springs
+\end{list0}\end{minipage}
+
+\end{slide}

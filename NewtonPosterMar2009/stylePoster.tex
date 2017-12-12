@@ -1,0 +1,97 @@
+\documentclass[10pt]{report}
+\textheight 27cm
+\textwidth 19cm
+
+% for pdflatex
+\topmargin -3.2cm
+\oddsidemargin -1.2cm
+
+\parindent=0.0in
+%\parsep=0pt
+
+\raggedright
+
+%\usepackage[draft]{graphicx}
+\usepackage{graphicx}
+\usepackage {amsmath, subfigure, lscape, rotating,
+             times, color, amssymb, fancybox}
+\renewcommand{\implies}{\ensuremath{\Rightarrow}}
+
+\pagestyle{empty}
+
+\definecolor{purple}{rgb}{0.6,0,0.7}
+
+% tabular customisation
+%\setlength{\tabcolsep}{2pt}
+%\renewcommand{\arraystretch}{0.7}
+
+\renewcommand{\huge}{\fontsize{19}{22}\selectfont}
+\renewcommand{\large}{\fontsize{11}{13}\selectfont}
+\renewcommand{\normalsize}{\fontsize{8}{9}\selectfont}
+\renewcommand{\footnotesize}{\fontsize{6}{8}\selectfont}
+\renewcommand{\small}{\fontsize{5}{6}\selectfont}
+
+% make $\times$, $+$, $-$ and $=$ use less space
+\newcommand{\tims}{\negthinspace \times \negthinspace}
+\newcommand{\eqs}{\negthinspace = \negthinspace}
+\newcommand{\plus}{\negmedspace + \negmedspace}
+\newcommand{\minus}{\negthinspace - \negthinspace}
+\newcommand{\simto}{\sim \negthinspace}
+\newcommand{\half}{{\ensuremath{^1\negthickspace/\negthinspace_2}}}
+
+% some shorthands
+\newcommand{\de}{\ensuremath{^\circ}}
+\newcommand{\ie}{\ensuremath{i.e.}}
+\newcommand{\dprod} {\,{\scriptscriptstyle \stackrel{\bullet}{{}}}\,}
+\renewcommand{\vec}[1] {\ensuremath{\mathbf #1}}
+\newcommand{\gvec}[1] {\ensuremath{\mbox{\boldmath$\bf#1$}}}
+\newcommand{\eqn}[1]{\mbox{$#1$}}
+
+\newcommand{\vortDiv}{\ensuremath{\sqrt{\zeta^2\plus \delta^2}}}
+\newcommand{\expForm}[2]{\ensuremath{#1\tims 10^{#2}}}
+\newcommand{\persec}{\ensuremath{s^{\minus 1}}}
+\newcommand{\persecm}{\ensuremath{s^{\minus 1}m^{\minus 1}}}
+
+% Define plist environment for list with arbitrary bullets
+\newenvironment{plist}[1]%
+{\begin{list}{{#1}}
+    {\raggedright\setlength{\itemsep}{-2pt}\setlength{\leftmargin}{0.5cm}
+    \vspace{-6pt}}}
+{\end{list}\vspace{-6pt}}
+
+% Define blist environment for list of bullets
+\newenvironment{blist}%
+{\begin{plist}{{$\bullet$}}}{\end{plist}}
+
+% Define Qlist environment for list of questions
+\newenvironment{Qlist}%
+{\begin{plist}{{Q.}}}{\end{plist}}
+
+% Define Alist environment for list of answers
+\newenvironment{Alist}%
+{\begin{plist}{{A.}}}{\end{plist}}
+
+\newcommand{\heading}[1]{\large \centering #1 \\ \normalsize}
+
+\newcommand{\Obox}[1]%
+{\Ovalbox{\begin{minipage}[t]{\linewidth}\vspace{3pt}
+#1
+\vspace{1pt}\end{minipage}}}
+
+\newcommand{\HOME}{/home/sws02hs}
+
+% FOAM paths
+% ~~~~~~~~~~
+% \newcommand{\macroPath}{\HOME/latex/begin/foam}
+
+% % Nabla's specific macro packages
+% % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% \usepackage{latexsym,amssymb}
+% \usepackage{\macroPath/tensorCommon}        % Common tensor symbols
+% \usepackage{\macroPath/tensorEquation}      % Common tensor equations
+% \usepackage{\macroPath/tensorOperator}      % Common tensor operators
+
+
+
+\begin{document}
+%\begin{landscape}

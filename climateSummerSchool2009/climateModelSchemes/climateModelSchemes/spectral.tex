@@ -1,0 +1,144 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}{The Spectral Method}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ \\
+\begin{list0}
+
+\item As high order accuracy as is possible on any particular grid\\
+$\rightarrow$ best accuracy for the computational effort FOR SMOOTH solutions\\
+$\rightarrow$ particularly accurate for low resolution
+
+\item Not conservative
+
+\item Requires a periodic domain $\therefore$ not ideal for limited area models
+
+\item Suffers from spectral ringing
+\begin{list1}
+    \item oscillations either side of discontinuities due to representation of all fields as sums of waves
+\end{list1}
+\item Parallelisability limited due to global communications of decomposing solution into waves.\\
+But ECMWF benchmarks $\rightarrow$ purchase of parallel rather than vector machine.
+\end{list0}
+
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}{The Spectral Method}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ \\
+Express the state, $\phi$, of the atmosphere as a sum of $N$ waves of different waves lengths. 1D Example:
+
+\[
+\phi(x,t) = \sum_{k=0}^{N} a_k \sin kx + b_k \cos kx = \sum_{k=0}^N A_k e^{ikx}
+\]
+
+where $x\in[0, 2\pi]$ and $a_k$, $b_k$ or complex valued $A_k$ are the Fourier coefficients.
+
+Fourier coefficients found using an fft -- fast Fourier transform
+
+$N$ is the spectral resolution or spectral truncation
+
+Remember use for Fourier filtering:\\
+\begin{minipage}{0.32\linewidth}
+\includegraphics[width=\linewidth]{Fourier/realSpace.pdf}
+\end{minipage}
+%
+\begin{minipage}{0.32\linewidth}
+\includegraphics[width=\linewidth]{Fourier/firstModes.pdf}
+\end{minipage}
+%
+\begin{minipage}{0.32\linewidth}
+\includegraphics[width=\linewidth]{Fourier/lastModes.pdf}
+\end{minipage}
+
+\begin{minipage}[t]{0.38\linewidth}\centering
+Black line -- original data $\rightarrow$
+\end{minipage}
+%
+\begin{minipage}[t]{0.23\linewidth}\centering
+First few modes
+\end{minipage}
+%
+\begin{minipage}[t]{0.37\linewidth}\centering
+Highest frequency modes
+\end{minipage}
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}{Equation to Solve using the Spectral Method}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ \\
+The fast moving gravity (or sound) waves in the atmosphere are controlled by a Helmholtz equation.
+
+The momentum, continuity and Perfect gas equations are combined:
+
+\setlength{\tabcolsep}{12pt}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{lcl}
+Momentum:
+&
+$\frac{\partial\rho\vec{U}}{\partial t} + \nabla\dprod\rho\vec{U}\vec{U} + \nabla p = \text{other terms}$
+&
+Take divergence
+\\
+Continuity:
+&
+$\frac{\partial\rho}{\partial t} + \nabla\dprod\rho\vec{U} = 0$
+&
+Take rate of change
+\\
+Perfect Gas:
+&
+$\rho=\frac{p}{RT}$
+&
+Substitute into $\frac{\partial\rho}{\partial t}$ term of continuity
+\end{tabular}
+
+Momentum and continuity now both contain $\nabla\dprod\frac{\partial\rho\vec{U}}{\partial t}$ so they are combined to form the Helmholtz equation for pressure:
+\[
+\frac{\partial^2 \frac{p}{RT}}{\partial t^2} - \nabla^2 p = \nabla\dprod\nabla\dprod\rho\vec{U}\vec{U} + \nabla\dprod\text{other terms}
+\]
+LHS: Helmholtz part: controls fast waves\\
+Semi-implicit method: solve Helmholtz part implicitly using values from previous time step for slower terms on RHS (explicit)
+\end{slide}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{slide}{Example: Solution of 1D Helmholtz Equation using Spectral Method}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\[
+\frac{\partial^2 \phi}{\partial t^2} - \Phi \frac{\partial^2 \phi}{\partial x^2}
+= F(x)
+\]
+
+\begin{list0}
+\item Express the state vector $\phi(x,t)$ as a sum of Fourier coefficients:
+\vspace{-4ex}\[
+\phi(x,t) = \sum_{k=0}^N A_k(t) e^{ikx}
+%
+\implies \frac{\partial^2 \phi}{\partial x^2} = -\sum_{k=0}^N k^2 A_k e^{ikx}
+\text{ and }
+\frac{\partial^2 \phi}{\partial t^2} = \sum_{k=0}^N k^2 \frac{dA_k}{dt} e^{ikx}
+\]\vspace{-4ex}
+\item Substituting these into the Helmholtz equation gives O.D.E.s:
+\vspace{-4ex}\[
+\sum_{k=0}^N\biggl( \frac{d^2 A_k}{dt^2} + \Phi k^2 A_k\biggr) e^{ikx} = F(x)
+\]
+where $F(x)$ contains the interactions between different wave numbers.\\
+\item For a semi-implicit numerical solution we assume that $F(x)$ is not dependent on time (explicit part)\\
+$\therefore$ solve $\frac{d^2 A_k}{dt^2} + \Phi k^2 A_k = \text{fft}_k(F)$ numerically for each $k$, for example using:
+\vspace{-4ex}\[
+\frac{d^2 A_k}{dt^2} \approx
+\frac
+{\frac{A_k^n - A_k^{n-1}}{\delta t} - \frac{A_k^{n-1} - A_k^{n-2}}{\delta t}}
+{\delta t}
+\text{ where $n$ represents the time level}
+\]
+This gives solutions for each $A_k^n$
+\item Inverse Fourier transforms from $A^n_k$ used to get $\phi^n(x) = \phi(x,t)$
+\end{list0}
+\end{slide}
+
+

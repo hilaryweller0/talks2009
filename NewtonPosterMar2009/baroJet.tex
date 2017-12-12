@@ -1,0 +1,88 @@
+\Obox{
+
+\heading{Adaptation Procedure}
+
+\begin{blist}
+\item Barotropically unstable jet test case of Galesky et al (2004).
+\item Mesh adaptation every 12 hours
+\end{blist}
+\vspace{-12pt}
+\begin{center}
+Vorticity ($\zeta$) and mesh at 5\half\ days, before remeshing (31,467 cells) \\
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+475200+vorticityFilledMeshLines.png}
+\begin{minipage}{0.12\linewidth}
+$\zeta~ s^{-1}$
+\end{minipage}\begin{minipage}{0.87\linewidth}
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+legends+vorticityFilledMeshLines_vorticity.pdf}
+\end{minipage}
+
+\begin{minipage}{0.49\linewidth}\centering \small
+$|\nabla\negthinspace\vortDiv|$ mapped onto coarse mesh at 5\half\ days\\
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+meshing+save_518400+475200+magGradvortDiv.png}
+\end{minipage}
+%
+\begin{minipage}{0.49\linewidth}\centering \small
+$|\nabla\negthinspace\vortDiv|$ unresolved on coarse mesh at 5\half\ days\\
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+meshing+save_518400+475200+magGradvortDivMapped.png}
+\end{minipage}
+%
+\begin{minipage}{0.49\linewidth}\centering \small
+$|\nabla\negthinspace\vortDiv|$ simulated on uniform coarse mesh from 5\half\ days to 6 days\\
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+meshing+save_518400+475200+magGradvortDiv.png}
+\end{minipage}
+%
+\begin{minipage}{0.49\linewidth}\centering \small
+$|\nabla\negthinspace\vortDiv|$ unresolved on coarse mesh passively advected from 5\half\ to 6 days\\
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+meshing+save_518400+475200+magGradvortDivMapped.png}
+\end{minipage}
+\begin{minipage}{0.12\linewidth}
+$s^{-1}m^{-1}$
+\end{minipage}\begin{minipage}{0.87\linewidth}
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+legends+magGradvortDiv.pdf}
+\end{minipage}
+
+\vspace{6pt}
+{\Huge$\longleftarrow$}
+\begin{minipage}[b]{0.79\linewidth}\raggedright
+Based on coarse mesh results (2,562 cells) over 12 hours, calculate required mesh density function and remesh
+\end{minipage}\\
+\begin{raggedright}
+If $\delta x$ = mesh density function
+\vspace{-6pt}
+\begin{equation*}\begin{split}
+1/\delta x =& 1/\delta x_{\max}
++ \bigl(1/\delta x_{\min} - 1/\delta x_{\max}\bigr)\\
+&\max
+\biggl(
+    \max\bigl( R_{rc},\underset{12\text{ hours}}{\max}R_r\bigr) \big/ R_{rc},
+    \max\bigl( R_{uc},\underset{12\text{ hours}}{\max}R_u\bigr) \big/ R_{uc}
+\biggr)\\
+\end{split}\end{equation*}\vfill
+{
+\setlength{\tabcolsep}{1pt}
+\vspace{-6pt}where \begin{tabular}[t]{ccl}
+$R_r$ & = & $|\nabla\negthinspace\vortDiv|$ resolved on the coarse mesh \\
+$R_u$ & = & $|\nabla\negthinspace\vortDiv|$ unresolved and advected on the coarse mesh \\
+$R_{rc}$ & = & critical value for $R_c = 1\times 10^{-10}s^{-1}m^{-1}$\\
+$R_{uc}$ & = & critical value for $R_u = 4\times 10^{-10}s^{-1}m^{-1}$\\
+$\delta x_{\max}$ & = & 960km \\
+$\delta x_{\min}$ & = & 60km \\
+\end{tabular}
+}
+\end{raggedright}
+
+% \end{center}
+% }
+
+% \Obox{
+% \begin{center}
+
+Vorticity and mesh at 5\half\ days, after remeshing (34,601 cells) \\
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+475201+vorticityFilledMeshLines.png}
+
+Vorticity and mesh simulated on new mesh (34,601 cells) until 6 days \\
+\includegraphics[width=\linewidth]{graphics/shallowWater+baroInstab+predictAdvectMagGrad+save+dx_6e4_spread_1_magGradVortDiv_1-4e-10+518400+vorticityFilledMeshLines.png}
+
+\end{center}
+
+}
